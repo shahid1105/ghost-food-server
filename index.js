@@ -104,8 +104,9 @@ async function run() {
 }
 run().catch(console.dir);
 
+// setup
 app.get("/", (req, res) => {
-  res.send("ghost food server is running");
+  res.send("ghost food server is running now");
 });
 
 app.listen(port, () => {
