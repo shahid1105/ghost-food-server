@@ -29,6 +29,14 @@ async function run() {
       .db("ghostFood")
       .collection("allGhostFood");
 
+    // all ghost food data get api
+    app.get("/allFood", async (req, res) => {
+      const cursor = ghostFoodCollection.find().limit(20);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    // new food post for post api
     app.post("/allFood", async (req, res) => {
       const allFood = req.body;
       const result = await ghostFoodCollection.insertOne(allFood);
