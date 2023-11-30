@@ -51,6 +51,38 @@ async function run() {
       res.send(result);
     });
 
+    // update for get api
+    app.get("/updateFood/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await ghostFoodCollection.findOne(query);
+      res.send(result);
+    });
+
+    //  update put api
+    app.put("/update/:id", async (req, res) => {
+      const id = req.params.id;
+      const ghostFood = req.body;
+      // console.log(ghostFood);
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updatedGhostFood = {
+        $set: {
+          availableQuantity: ghostFood.availableQuantity,
+          description: ghostFood.description,
+          img: ghostFood.img,
+          price: ghostFood.price,
+        },
+      };
+      const result = await ghostFoodCollection.updateOne(
+        filter,
+        updatedGhostFood,
+        options
+      );
+      // console.log(result);
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
