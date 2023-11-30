@@ -104,7 +104,7 @@ async function run() {
 }
 run().catch(console.dir);
 
-// setup
+// initial setup
 app.get("/", (req, res) => {
   res.send("ghost food server is running now");
 });
